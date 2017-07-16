@@ -32,6 +32,7 @@ private slots:
     void saveScreenshotToDisk();
     void startShooting();
     void stopShooting();
+    void deleteOldShots();
 
 private:
     void updateScreenshotLabel();
