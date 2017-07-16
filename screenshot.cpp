@@ -190,9 +190,28 @@ void Screenshot::updateScreenshotLabel()
 void Screenshot::startShooting()
 {
     m_stop = false;
+
+    deleteOldShots();
+
     regularShooting();
 }
 
 void Screenshot::stopShooting() {
     m_stop = true;
+}
+
+void Screenshot::deleteOldShots()
+{
+     QString filePath = tr("D:/screenshot/");
+     QDir dir(filePath);
+     if (dir.exists()) {
+         dir.setNameFilters(QStringList() << "*.*");
+         dir.setFilter(QDir::Files);
+         foreach(QString dirFile, dir.entryList())
+         {
+             dir.remove(dirFile);
+         }
+     } else {
+        qDebug() << "Folder for deleting is nor real :(";
+     }
 }
