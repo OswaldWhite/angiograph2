@@ -37,10 +37,6 @@ Screenshot::Screenshot()
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
 
-    //    newScreenshotButton = new QPushButton(tr("New Screenshot"), this);
-    //    connect(newScreenshotButton, &QPushButton::clicked, this, &Screenshot::newScreenshot);
-    //    buttonsLayout->addWidget(newScreenshotButton);
-
     startRegularScreenshotButton = new QPushButton(tr("Start screen shooting"), this);
     connect(startRegularScreenshotButton, &QPushButton::clicked, this, &Screenshot::startShooting);
     buttonsLayout->addWidget(startRegularScreenshotButton);
@@ -79,7 +75,7 @@ void Screenshot::newScreenshot()
 {
     if (hideThisWindowCheckBox->isChecked())
         hide();
-    //newScreenshotButton->setDisabled(true);
+
     startRegularScreenshotButton->setDisabled(true);
 
     QTimer::singleShot(1000, this, &Screenshot::shootScreen);
@@ -97,15 +93,15 @@ void Screenshot::regularShooting()
 
 void Screenshot::saveScreenshotToDisk()
 {
-    QDir dir("D:/screenshot");
+    QDir dir("E:/film/angio/screenshot");
     if (!dir.exists()) {
-        QDir dir2("D:/");
+        QDir dir2("E:/film/angio/");
         dir2.mkdir("screenshot");
     }
 
     const QString format = "png";
 
-    QString fileName = tr("D:/screenshot/%1%2").arg(dir.dirName()).arg(m_counter) + tr(".") + format;
+    QString fileName = tr("E:/film/angio/screenshot/%1%2").arg(dir.dirName()).arg(m_counter) + tr(".") + format;
     qDebug() << "File trys to be saved to " << fileName;
 
     QFile file(fileName);
@@ -162,7 +158,6 @@ void Screenshot::shootScreen()
     originalPixmap = screen->grabWindow(0);
     updateScreenshotLabel();
 
-    //newScreenshotButton->setDisabled(false);
     startRegularScreenshotButton->setDisabled(false);
 
     if (hideThisWindowCheckBox->isChecked())
@@ -196,22 +191,19 @@ void Screenshot::startShooting()
     regularShooting();
 }
 
-void Screenshot::stopShooting() {
+void Screenshot::stopShooting()
+{
     m_stop = true;
 }
 
 void Screenshot::deleteOldShots()
 {
-     QString filePath = tr("D:/screenshot/");
+     QString filePath = tr("E:/film/angio/screenshot/");
      QDir dir(filePath);
      if (dir.exists()) {
          dir.setNameFilters(QStringList() << "*.*");
          dir.setFilter(QDir::Files);
-         foreach(QString dirFile, dir.entryList())
-         {
+         foreach(QString dirFile, dir.entryList()) {
              dir.remove(dirFile);
          }
-     } else {
-        qDebug() << "Folder for deleting is nor real :(";
-     }
 }
