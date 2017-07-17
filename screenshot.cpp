@@ -97,15 +97,15 @@ void Screenshot::regularShooting()
 
 void Screenshot::saveScreenshotToDisk()
 {
-    QDir dir("D:/screenshot");
+    QDir dir("E:/film/angio/screenshot");
     if (!dir.exists()) {
-        QDir dir2("D:/");
+        QDir dir2("E:/film/angio/");
         dir2.mkdir("screenshot");
     }
 
     const QString format = "png";
 
-    QString fileName = tr("D:/screenshot/%1%2").arg(dir.dirName()).arg(m_counter) + tr(".") + format;
+    QString fileName = tr("E:/film/angio/screenshot/%1%2").arg(dir.dirName()).arg(m_counter) + tr(".") + format;
     qDebug() << "File trys to be saved to " << fileName;
 
     QFile file(fileName);
@@ -202,7 +202,7 @@ void Screenshot::stopShooting() {
 
 void Screenshot::deleteOldShots()
 {
-     QString filePath = tr("D:/screenshot/");
+     QString filePath = tr("E:/film/angio/screenshot/");
      QDir dir(filePath);
      if (dir.exists()) {
          dir.setNameFilters(QStringList() << "*.*");
